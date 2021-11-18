@@ -37,7 +37,7 @@ const Dashboard = ({ lists }) => {
             cards={list.cards}
           />
         ))}
-        <Actions lists />
+        <Actions list />
       </DashboardContainer>
     </DragDropContext>
   )
