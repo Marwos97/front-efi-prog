@@ -36,17 +36,17 @@ export const getAllList = () => async (dispatch) => {
   try {
     const res = await axios.get(`${process.env.REACT_APP_KEY + PATH}`)
     res.data.map(async (list) => {
-      list.tasks = new Array()
+      list.tasks = [{ id: "awebo", text: "asdasd" }]
       const res_task = await axios.get(
         `${process.env.REACT_APP_KEY + PATH_TASK}/list/${list.list_id}`
       )
-      for (const taskIndex in res_task.data.data) {
-        console.log("task en actions: " + res_task.data.data[taskIndex].title)
-        list.tasks.push({
-          id: res_task.data.data[taskIndex].task_id,
-          text: res_task.data.data[taskIndex].title,
-        })
-      }
+      // for (const taskIndex in res_task.data.data) {
+      //   console.log("task en actions: " + res_task.data.data[taskIndex].title)
+      //   list.tasks.push({
+      //     id: res_task.data.data[taskIndex].task_id,
+      //     text: res_task.data.data[taskIndex].title,
+      //   })
+      // }
       // res_task.data.data.map((task) => {
       //   list.tasks.push({
       //     id: task.task_id,

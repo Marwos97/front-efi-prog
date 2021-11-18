@@ -47,9 +47,12 @@ const listReducer = (state = initialState, action) => {
     case CONSTANTS.GET_ALL_LIST: {
       let newState = []
       for (let list in action.payload) {
-        console.log("get all ", action.payload[list].tasks)
+        console.log("get all asdasd", action.payload[list].tasks)
+        const tareas = action.payload[list].tasks
+        console.log("tareas: " + tareas)
         let all_cards = []
         for (let taskIndex in action.payload[list].tasks) {
+          console.log("get all 1", action.payload[list].tasks[taskIndex])
           all_cards.push({
             id: action.payload[list].tasks[taskIndex].id,
             text: action.payload[list].tasks[taskIndex].text,
@@ -71,7 +74,7 @@ const listReducer = (state = initialState, action) => {
       //     cards: list.tasks,
       //   })
       // })
-      return newState
+      return state
     }
 
     case CONSTANTS.ADD_CARD: {
