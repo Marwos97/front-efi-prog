@@ -3,14 +3,30 @@ import { DashboardContainer } from "./Styled"
 import List from ".././List"
 import Actions from "../Actions"
 import { DragDropContext } from "react-beautiful-dnd"
+import { sort } from "../../actions"
 
 const Dashboard = ({ lists }) => {
+  
+ const onDragEnd = result => {
+      const {destination,source,draggableId} = result;
 
-  const onDragEnd = () => {
-    
-  }
+    if(!destination){
+      return;
+    }
+
+    //  this.props.dispatch(
+      sort(
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index,
+        draggableId
+    // )
+    );
+  };
   return (
-    <DragDropContext>
+   
+    <DragDropContext onDragEnd={onDragEnd}>
       <DashboardContainer>
         {lists.map((list) => (
           <List

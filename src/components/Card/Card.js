@@ -5,8 +5,8 @@ import { Draggable } from "react-beautiful-dnd"
 
 const CardTask = ({ text, card_id, index }) => {
   return (
-    <Draggable draggableId={card_id} index={index}>
-      {(provided) => (
+    <Draggable draggableId={String(card_id)} index={index}>
+      {provided => (
         <CardContainer
           ref={provided.innerRef}
           {...provided.draggableProps}
