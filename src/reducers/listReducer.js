@@ -95,7 +95,8 @@ const listReducer = (state = initialState, action) => {
       })
       return newState
     }
-    case CONSTANTS.DRAG_HAPPENED:
+
+    case CONSTANTS.DRAG_HAPPENED: {
       const {
         droppableIdStart,
         droppableIdEnd,
@@ -107,8 +108,8 @@ const listReducer = (state = initialState, action) => {
       const newState = [...state]
       if (droppableIdStart === droppableIdEnd) {
         const list = state.find((list) => droppableIdStart === list.list_id)
-        const card = list.cards.splice(droppableIndexStart, 1)
-        list.cards.splice(droppableIndexEnd, 0, ...card)
+        const card = list.CardTask.splice(droppableIndexStart, 1)
+        list.CardTask.splice(droppableIndexEnd, 0, ...card)
       }
 
       if (droppableIdStart !== droppableIdEnd) {
@@ -117,16 +118,25 @@ const listReducer = (state = initialState, action) => {
           (list) => droppableIdStart === list.list_id
         )
 
-        const card = listStart.cards.splice(droppableIndexStart, 1)
+        if (droppableIdStart !== droppableIdEnd) {
+          //encontrar la lista donde se dibuje
+          const listStart = state.find(
+            (list) => droppableIdStart === list.list_id
+          )
 
-        const listEnd = state.find((list) => droppableIdEnd === list.id)
+          //poner la card en otra lista
+          const card = listStart.CardTask.splice(droppableIndexStart, 1)
 
-        listEnd.cards.splice(droppableIndexEnd, 0, ...card)
+          //encontrar la lista en el arrastre
+          const listEnd = state.find((list) => droppableIdEnd === list.list_id)
+
+          //poner la card en una lista nueva
+          listEnd.CardTask.splice(droppableIndexEnd, 0, ...card)
+        }
+
+        return newState
       }
-
-      //poner la card en otra lista
-
-      return newState
+    }
 
     default:
       return state
