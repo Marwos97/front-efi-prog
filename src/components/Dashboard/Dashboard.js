@@ -6,26 +6,27 @@ import { DragDropContext } from "react-beautiful-dnd"
 import { sort } from "../../actions"
 
 const Dashboard = ({ lists }) => {
-  
- const onDragEnd = result => {
-      const {destination,source,draggableId} = result;
+  lists.map((list) => {
+    console.log("la lista en el front: " + list.cards)
+  })
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result
 
-    if(!destination){
-      return;
+    if (!destination) {
+      return
     }
 
     //  this.props.dispatch(
-      sort(
-        source.droppableId,
-        destination.droppableId,
-        source.index,
-        destination.index,
-        draggableId
-    // )
-    );
-  };
+    sort(
+      source.droppableId,
+      destination.droppableId,
+      source.index,
+      destination.index,
+      draggableId
+      // )
+    )
+  }
   return (
-   
     <DragDropContext onDragEnd={onDragEnd}>
       <DashboardContainer>
         {lists.map((list) => (
@@ -36,7 +37,7 @@ const Dashboard = ({ lists }) => {
             cards={list.cards}
           />
         ))}
-        <Actions list />
+        <Actions lists />
       </DashboardContainer>
     </DragDropContext>
   )
