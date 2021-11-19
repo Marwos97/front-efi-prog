@@ -3,11 +3,60 @@ import { CONSTANTS } from "../actions"
 
 const PATH = "/api/v1/task"
 
-export const addCard = async (list_id, text) => {
-  axios.post(`${process.env.REACT_APP_KEY + PATH}`, )
-  return {
-    type: CONSTANTS.ADD_CARD,
-    payload: { text, list_id },
+export const addCard = (list_id, text) => async (dispatch) => {
+  try {
+    await axios.post(`${process.env.REACT_APP_KEY + PATH}`, {
+      list_id: list_id,
+      title: text,
+    })
+    dispatch({
+      type: CONSTANTS.ADD_CARD,
+      payload: { text, list_id },
+    })
+  } catch (e) {
+    console.log("Failed create task")
+    dispatch({
+      type: CONSTANTS.ERROR_TASK_MODULE,
+      payload: console.log(e),
+    })
+  }
+}
+
+export const getAllTaskByList = (lists) => async (dispatch) => {
+  try {
+    let tasks = []
+    for (let i in lists) {
+      const list_id = lists[i].id
+      const res_task = await axios.get(
+        `${process.env.REACT_APP_KEY + PATH}/list/${list_id}`
+      )
+      debugger
+      tasks.push({
+        list_id,
+        tasks: res_task.data.data,
+      })
+    }
+    // lists.map(async (list) => {
+    //   const list_id = list.id
+    //   const res_task = await axios.get(
+    //     `${process.env.REACT_APP_KEY + PATH}/list/${list_id}`
+    //   )
+    //   debugger
+    //   tasks.push({
+    //     list_id,
+    //     tasks: res_task.data.data,
+    //   })
+    // })
+    dispatch({
+      type: CONSTANTS.GET_ALL_TASK,
+      payload: tasks,
+    })
+  } catch (e) {
+    console.log(`Failed get all task the `)
+    dispatch({
+      type: CONSTANTS.ERROR_TASK_MODULE,
+      payload: console.log(e),
+    })
   }
 }
 

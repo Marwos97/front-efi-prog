@@ -1,4 +1,5 @@
 import { CONSTANTS } from "../actions"
+
 let list_id = 4
 let card_id = 6
 
@@ -47,24 +48,11 @@ const listReducer = (state = initialState, action) => {
     case CONSTANTS.GET_ALL_LIST: {
       let newState = []
       for (let list in action.payload) {
-        console.log("get all asdasd", action.payload[list].tasks)
-        const tareas = action.payload[list].tasks
-        console.log("tareas: " + tareas)
-        let all_cards = []
-        for (let taskIndex in action.payload[list].tasks) {
-          console.log("get all 1", action.payload[list].tasks[taskIndex])
-          all_cards.push({
-            id: action.payload[list].tasks[taskIndex].id,
-            text: action.payload[list].tasks[taskIndex].text,
-          })
-        }
-        console.log("all cards" + all_cards)
         newState.push({
           id: action.payload[list].list_id,
           title: action.payload[list].name,
           cards: action.payload[list].tasks,
         })
-        console.log("lista en for: " + action.payload[list].tasks)
       }
       // action.payload.map((list) => {
       //   console.log("las tasks: " + typeof list.tasks[0])
@@ -74,7 +62,7 @@ const listReducer = (state = initialState, action) => {
       //     cards: list.tasks,
       //   })
       // })
-      return state
+      return newState
     }
 
     case CONSTANTS.ADD_CARD: {
@@ -130,6 +118,31 @@ const listReducer = (state = initialState, action) => {
       }
 
       return newState
+    }
+
+    case CONSTANTS.GET_ALL_TASK: {
+      let newState = []
+      console.log("el payload, " + action.payload)
+      action.payload.map((list_task) => {
+        console.log("awebo" + list_task.tasks)
+        state.map((list) => {
+          if (list_task.list_id === list.id) {
+            let cards = []
+            debugger
+            for (let i in list_task.tasks) {
+              debugger
+              cards.push({
+                id: list_task.tasks[i].task_id,
+                text: list_task.tasks[i].title,
+              })
+            }
+            list.cards = cards
+          }
+          newState.push(list)
+        })
+      })
+      debugger
+      return [...new Set(newState)]
     }
 
     default:

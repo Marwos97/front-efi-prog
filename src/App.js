@@ -1,17 +1,10 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React from "react"
 import { connect } from "react-redux"
 import Dashboard from "./components/Dashboard"
-import { useEffect } from "react"
-import { getAllList } from "./actions"
 
 const App = (props) => {
-  const { dispatch, lists } = props
+  const { lists, dispatch } = props
 
-  useEffect(async () => {
-    await dispatch(getAllList())
-  }, [])
 
   return (
     <div className="App">

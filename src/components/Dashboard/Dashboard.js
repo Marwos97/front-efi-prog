@@ -3,9 +3,15 @@ import { DashboardContainer } from "./Styled"
 import List from ".././List"
 import Actions from "../Actions"
 import { DragDropContext } from "react-beautiful-dnd"
-import { sort } from "../../actions"
+import { getAllTaskByList, sort } from "../../actions"
+import { useEffect } from "react"
+import { connect, useDispatch } from "react-redux"
 
-const Dashboard = ({ lists }) => {
+const Dashboard = ({ lists, dispatch }) => {
+  useEffect(() => {
+    dispatch(getAllTaskByList(lists))
+  }, [])
+
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result
 
@@ -40,4 +46,4 @@ const Dashboard = ({ lists }) => {
   )
 }
 
-export default Dashboard
+export default connect()(Dashboard)
