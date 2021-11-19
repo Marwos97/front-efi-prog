@@ -6,9 +6,6 @@ import { DragDropContext } from "react-beautiful-dnd"
 import { sort } from "../../actions"
 
 const Dashboard = ({ lists }) => {
-  lists.map((list) => {
-    console.log("la lista en el front: " + list.cards)
-  })
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result
 

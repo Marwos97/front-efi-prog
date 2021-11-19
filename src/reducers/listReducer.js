@@ -79,10 +79,11 @@ const listReducer = (state = initialState, action) => {
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {
-        text: action.payload,
+        text: action.payload.text,
         id: `card-${card_id}`,
       }
       card_id += 1
+      debugger
       const newState = state.map((list) => {
         if (list.id === action.payload.list_id) {
           return {
@@ -118,24 +119,17 @@ const listReducer = (state = initialState, action) => {
           (list) => droppableIdStart === list.list_id
         )
 
-        if (droppableIdStart !== droppableIdEnd) {
-          //encontrar la lista donde se dibuje
-          const listStart = state.find(
-            (list) => droppableIdStart === list.list_id
-          )
+        //poner la card en otra lista
+        const card = listStart.CardTask.splice(droppableIndexStart, 1)
 
-          //poner la card en otra lista
-          const card = listStart.CardTask.splice(droppableIndexStart, 1)
+        //encontrar la lista en el arrastre
+        const listEnd = state.find((list) => droppableIdEnd === list.list_id)
 
-          //encontrar la lista en el arrastre
-          const listEnd = state.find((list) => droppableIdEnd === list.list_id)
-
-          //poner la card en una lista nueva
-          listEnd.CardTask.splice(droppableIndexEnd, 0, ...card)
-        }
-
-        return newState
+        //poner la card en una lista nueva
+        listEnd.CardTask.splice(droppableIndexEnd, 0, ...card)
       }
+
+      return newState
     }
 
     default:

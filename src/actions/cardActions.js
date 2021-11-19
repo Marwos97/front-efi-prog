@@ -1,11 +1,15 @@
+import axios from "axios"
 import { CONSTANTS } from "../actions"
 
-export const addCard = (list_id, text) => {
+const PATH = "/api/v1/task"
+
+export const addCard = async (list_id, text) => {
+  axios.post(`${process.env.REACT_APP_KEY + PATH}`, )
   return {
     type: CONSTANTS.ADD_CARD,
-    payload: {text, list_id},
+    payload: { text, list_id },
   }
-};
+}
 
 // export const editCard = (id, list_id, newText) => {
 //   return {

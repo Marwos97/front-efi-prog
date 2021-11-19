@@ -72,9 +72,10 @@ class Actions extends React.Component {
   }
 
   handelAddCard = () => {
+
     const { dispatch, list_id } = this.props
     const { text } = this.state
-
+    debugger
     if (text) {
       this.setState({
         text: "",
