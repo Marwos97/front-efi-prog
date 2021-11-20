@@ -68,14 +68,13 @@ class Actions extends React.Component {
       })
       dispatch(addList(text))
     }
+    window.location.reload()
     return
   }
 
   handelAddCard = () => {
-
     const { dispatch, list_id } = this.props
     const { text } = this.state
-    debugger
     if (text) {
       this.setState({
         text: "",

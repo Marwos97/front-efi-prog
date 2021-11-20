@@ -1,12 +1,22 @@
 import { CONSTANTS } from "../actions"
 import axios from "axios"
-import { Droppable } from "react-beautiful-dnd"
-import { CastRounded, ListSharp, Restaurant } from "@material-ui/icons"
 
-export const addList = (title) => {
-  return {
-    type: CONSTANTS.ADD_LIST,
-    payload: title,
+const PATH = "/api/v1/list"
+
+export const addList = (title) => async (dispatch) => {
+  await axios.post(`${process.env.REACT_APP_KEY + PATH}`, {
+    name: title,
+  })
+  try {
+    dispatch({
+      type: CONSTANTS.ADD_LIST,
+      payload: title,
+    })
+  } catch (e) {
+    dispatch({
+      type: CONSTANTS.ERROR_LIST_MODULE,
+      payload: console.log(e),
+    })
   }
 }
 
@@ -15,9 +25,8 @@ export const sort = (
   droppableIdEnd,
   droppableIndexStart,
   droppableIndexEnd,
-  draggableId,
-  
-) =>{
+  draggableId
+) => {
   return {
     type: CONSTANTS.DRAG_HAPPENED,
     payload: {
@@ -26,18 +35,16 @@ export const sort = (
       droppableIndexStart,
       droppableIndexEnd,
       draggableId,
-      
-    }
+    },
   }
 }
 
-const PATH = "/api/v1/list"
 const PATH_TASK = "/api/v1/task"
 
 export const getAllList = () => async (dispatch) => {
   try {
     const res = await axios.get(`${process.env.REACT_APP_KEY + PATH}`)
-    res.data.map(async (list) => {
+    res.data.map((list) => {
       list.tasks = []
     })
     dispatch({

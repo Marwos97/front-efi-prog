@@ -5,6 +5,7 @@ const PATH = "/api/v1/task"
 
 export const addCard = (list_id, text) => async (dispatch) => {
   try {
+    debugger
     await axios.post(`${process.env.REACT_APP_KEY + PATH}`, {
       list_id: list_id,
       title: text,

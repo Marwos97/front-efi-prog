@@ -3,7 +3,7 @@ import { CONSTANTS } from "../actions"
 let list_id = 4
 let card_id = 6
 
-const initialState = [
+let initialState = [
   {
     title: "Titulo de la lista",
     id: `list-${0}`,
@@ -46,22 +46,13 @@ const listReducer = (state = initialState, action) => {
       return [...state, newList]
 
     case CONSTANTS.GET_ALL_LIST: {
-      let newState = []
-      for (let list in action.payload) {
-        newState.push({
-          id: action.payload[list].list_id,
-          title: action.payload[list].name,
-          cards: action.payload[list].tasks,
-        })
-      }
-      // action.payload.map((list) => {
-      //   console.log("las tasks: " + typeof list.tasks[0])
-      //   newState.push({
-      //     id: list.list_id,
-      //     title: list.name,
-      //     cards: list.tasks,
-      //   })
-      // })
+      let newState = action.payload.map((list) => {
+        return {
+          id: list.list_id,
+          title: list.name,
+          cards: list.tasks,
+        }
+      })
       return newState
     }
 
@@ -74,11 +65,13 @@ const listReducer = (state = initialState, action) => {
       debugger
       const newState = state.map((list) => {
         if (list.id === action.payload.list_id) {
+          debugger
           return {
             ...list,
             cards: [...list.cards, newCard],
           }
         } else {
+          debugger
           return list
         }
       })
@@ -122,15 +115,11 @@ const listReducer = (state = initialState, action) => {
 
     case CONSTANTS.GET_ALL_TASK: {
       let newState = []
-      console.log("el payload, " + action.payload)
       action.payload.map((list_task) => {
-        console.log("awebo" + list_task.tasks)
         state.map((list) => {
           if (list_task.list_id === list.id) {
             let cards = []
-            debugger
             for (let i in list_task.tasks) {
-              debugger
               cards.push({
                 id: list_task.tasks[i].task_id,
                 text: list_task.tasks[i].title,
@@ -141,7 +130,6 @@ const listReducer = (state = initialState, action) => {
           newState.push(list)
         })
       })
-      debugger
       return [...new Set(newState)]
     }
 

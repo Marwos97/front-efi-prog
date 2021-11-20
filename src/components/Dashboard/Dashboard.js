@@ -10,7 +10,7 @@ import { connect, useDispatch } from "react-redux"
 const Dashboard = ({ lists, dispatch }) => {
   useEffect(() => {
     dispatch(getAllTaskByList(lists))
-  }, [])
+  })
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result
