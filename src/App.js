@@ -22,14 +22,14 @@ const App = (props) => {
       <Fragment>
         <Layout>
           <Routes>
-            <Route exact path="/login" element={<SignInSide />} />
-            <Route
+            {/* <Route exact path="/login" element={<SignInSide />} /> */}
+            {/* <Route
               exact
               path="/"
               element={<PrivateRoute isAuthenticated={state.isAuthenticated} />}
-            >
+            > */}
               <Route exact path="/" element={<Dashboard lists={lists} />} />
-            </Route>
+            {/* </Route> */}
           </Routes>
         </Layout>
       </Fragment>
