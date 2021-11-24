@@ -13,29 +13,27 @@ import {
   IconClose,
   ButtonsContainer,
 } from "../Actions/Styled"
+import { deleteCard } from "../../actions"
+
 
 const CardTask = ({ text, card_id, index }) => {
   const updateCard = () => {}
 
-  // const DeleteCard = () => {
-    
-  //   if (text) {
-  //     this.setState({
-  //       text: "",
-  //     })
-      
-  //   }
-  // }
-
-
-const eliminarCard=(id)=>{
-  card_id = document.getElementById(id);
-  if (id) {
-    alert("La card selecionada se elimino");
-  } else {
-    alert("no fue posible eliminar la card")
+const  handleDelete = ({card_id,index,text}) => {
+        deleteCard(card_id);
   }
-}
+
+
+// const eliminarCard=(id)=>{
+//   card_id = document.getElementById(id);
+//   if (id) {
+//     alert("La card selecionada se elimino");
+//   } else {
+//     alert("no fue posible eliminar la card")
+//   }
+// }
+
+
   const handleClick = (text) => {
     console.log("awebo")
 
@@ -69,7 +67,8 @@ const eliminarCard=(id)=>{
           <CardContent onClick={handleClick}>
             <TypographyStyle gutterBottom>
               {text ? text : "no tengo texto aun"}
-              <iconButton> <DeleteOutlined  onClick={eliminarCard}/> </iconButton>
+            
+              <iconButton onClick={handleDelete}>  <DeleteOutlined></DeleteOutlined></iconButton>
               <iconButton> <EditOutlined  /> </iconButton>
             </TypographyStyle>
           </CardContent>

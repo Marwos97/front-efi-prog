@@ -68,9 +68,9 @@ export const getAllTaskByList = (lists) => async (dispatch) => {
 //   };
 // };
 
-// export const deleteCard = (id, list_id) => {
-//   return {
-//     type: CONSTANTS.DELETE_CARD,
-//     payload: { id, list_id }
-//   };
-// };
+export const deleteCard = (id, list_id) => {
+  return {
+    type: CONSTANTS.DELETE_CARD,
+    payload: { id, list_id }
+  };
+};
