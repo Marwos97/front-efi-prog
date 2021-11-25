@@ -61,12 +61,12 @@ export const getAllTaskByList = (lists) => async (dispatch) => {
   }
 }
 
-// export const editCard = (id, list_id, newText) => {
-//   return {
-//     type: CONSTANTS.EDIT_CARD,
-//     payload: { id, list_id, newText }
-//   };
-// };
+export const editCard = (id, list_id, newText) => {
+  return {
+    type: CONSTANTS.EDIT_CARD,
+    payload: { id, list_id, newText }
+  };
+};
 
 export const deleteCard = (id, list_id) => {
   return {

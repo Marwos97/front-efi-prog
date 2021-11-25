@@ -16,14 +16,17 @@ import {
 import { deleteCard } from "../../actions"
 
 
-const CardTask = ({ text, card_id, index }) => {
+const CardTask = ({ text, card_id, index,list_id, dispatch}) => {
   const updateCard = () => {}
 
-const  handleDelete = ({card_id,index,text}) => {
-        deleteCard(card_id);
-  }
+// const  handleDelete = ({card_id,index,text}) => {
+//         deleteCard(card_id);
+//   }
 
-
+  const handleDeleteCard = ()=> {
+        (deleteCard(card_id, list_id));
+     alert("se elimino esta card");
+  };
 // const eliminarCard=(id)=>{
 //   card_id = document.getElementById(id);
 //   if (id) {
@@ -68,7 +71,7 @@ const  handleDelete = ({card_id,index,text}) => {
             <TypographyStyle gutterBottom>
               {text ? text : "no tengo texto aun"}
             
-              <iconButton onClick={handleDelete}>  <DeleteOutlined></DeleteOutlined></iconButton>
+              <iconButton >  <DeleteOutlined onClick={handleDeleteCard}></DeleteOutlined></iconButton>
               <iconButton> <EditOutlined  /> </iconButton>
             </TypographyStyle>
           </CardContent>
